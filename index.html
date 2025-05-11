@@ -3,340 +3,306 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DigiMarkAI - High-Level Structure</title>
+    <title>DigiMarkAI - Styled</title>
     <style>
-        /* Very basic styling for visual separation of sections */
-        body { font-family: sans-serif; margin: 0; padding: 0; background-color: #f4f7f6; }
-        header, footer { background-color: #2c3e50; color: white; padding: 1em; text-align: center; }
-        nav ul { list-style-type: none; padding: 0; }
-        nav ul li { display: inline; margin-right: 10px; }
-        nav ul li a { color: white; text-decoration: none; }
-        section { border: 1px solid #ddd; margin: 20px; padding: 20px; background-color: white; border-radius: 8px; display: none; /* Initially hide all sections, JS will show them */}
-        h1, h2, h3 { color: #34495e; }
-        .app-header { background-color: #3498db; color: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; }
-        .app-header .back-button { font-size: 1.5em; text-decoration: none; color: white;}
-        .app-header .title { font-size: 1.2em; }
-        .app-header .actions button { background: none; border: none; color: white; font-size: 1.5em; }
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; margin-bottom: 5px; }
-        .form-group input, .form-group select, .form-group textarea { width: calc(100% - 22px); padding: 10px; border: 1px solid #ccc; border-radius: 4px; }
-        .button { background-color: #3498db; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; text-align: center; text-decoration: none; display: inline-block; }
-        .button-secondary { background-color: #ecf0f1; color: #2c3e50; }
-        .button-danger { background-color: #e74c3c; }
-        .tabs { display: flex; border-bottom: 1px solid #ccc; margin-bottom: 15px; }
-        .tabs button { padding: 10px 15px; border: none; background: none; cursor: pointer; }
-        .tabs button.active { border-bottom: 2px solid #3498db; font-weight: bold; }
-        .list-item { padding: 10px; border-bottom: 1px solid #eee; }
-        .list-item:last-child { border-bottom: none; }
-        .toggle-switch { display: flex; align-items: center; justify-content: space-between; }
-        .toggle-switch input[type="checkbox"] { /* Basic toggle styling can be complex, keeping it simple */ }
-        .modal-overlay { display: none; /* JS would control this */ position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; z-index: 1000; /* Ensure modal is on top */ }
-        .modal-content { background: white; padding: 20px; border-radius: 8px; text-align: center; position: relative; /* For absolute positioning of close button */ }
-        .modal-content .close-modal-btn { position:absolute; top:10px; right:15px; cursor:pointer; font-size:1.5em; border:none; background:none;}
+        /* Reset and Basic Setup */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            background-color: #f0f2f5; /* Light grey background like many modern apps */
+            color: #1d2129; /* Darker text color */
+            line-height: 1.6;
+            display: flex; /* For centering content initially */
+            justify-content: center;
+            align-items: flex-start; /* Align to top for scrollable content */
+            min-height: 100vh;
+            padding-top: 20px; /* Give some space at the top */
+        }
+
+        /* Main App Container (if you decide to wrap all sections) */
+        .app-container {
+            width: 100%;
+            max-width: 420px; /* Mobile-first approach, max-width for larger screens */
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            overflow: hidden; /* For rounded corners on content */
+        }
+
+        /* Individual Page Sections */
+        section {
+            padding: 24px;
+            display: none; /* JS controls visibility */
+        }
+        section#auth-screen { /* Style specific section */
+            display: block; /* Let's make auth visible for this example */
+        }
+
+
+        /* Logo and Title */
+        .auth-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        .auth-header img {
+            width: 60px; /* Adjust as needed */
+            margin-bottom: 8px;
+        }
+        .auth-header h2 {
+            font-size: 24px;
+            color: #111; /* Darker title */
+            font-weight: 600;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ccd0d5;
+        }
+        .tabs button {
+            flex-grow: 1;
+            padding: 12px 15px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            color: #606770; /* Inactive tab color */
+            position: relative;
+        }
+        .tabs button.active {
+            color: #007bff; /* Active tab color (your primary blue) */
+        }
+        .tabs button.active::after { /* Underline for active tab */
+            content: '';
+            position: absolute;
+            bottom: -1px; /* Align with the bottom border */
+            left: 0;
+            right: 0;
+            height: 3px;
+            background-color: #007bff;
+        }
+
+        /* Forms */
+        .form-group {
+            margin-bottom: 16px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #4b4f56;
+        }
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccd0d5;
+            border-radius: 6px;
+            font-size: 16px;
+            background-color: #f5f6f7; /* Slightly off-white input background */
+        }
+        .form-group input:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+            outline: none;
+            background-color: #fff;
+        }
+
+        /* Links */
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .forgot-password-link {
+            display: block;
+            text-align: right;
+            margin-bottom: 16px;
+            font-size: 14px;
+        }
+
+        /* Buttons */
+        .button {
+            display: inline-block;
+            width: 100%;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 6px;
+            background-color: #007bff; /* Primary blue */
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+
+        .button-secondary { /* For Google/Facebook buttons */
+            background-color: #e4e6eb;
+            color: #1d2129;
+            border: 1px solid #ccd0d5;
+            width: auto; /* Let content define width */
+            padding: 10px 15px;
+            margin: 0 5px;
+        }
+         .button-secondary:hover {
+            background-color: #d8dade;
+        }
+
+
+        .text-center {
+            text-align: center;
+        }
+        .separator {
+            text-align: center;
+            margin: 20px 0;
+            color: #606770;
+            font-size: 14px;
+        }
+        .auth-footer-link {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+        .auth-footer-link a {
+            font-weight: 600;
+        }
+
+        /* Utility for social buttons container */
+        .social-login-buttons {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
     </style>
 </head>
 <body>
+    <!-- Wrap your app in a container for centering and max-width -->
+    <div class="app-container">
 
-    <!-- Conceptual Sidebar -->
-    <nav id="main-sidebar" style="width: 250px; background: #34495e; color: white; padding: 15px; height: 100vh; position:fixed; left: -300px; z-index: 900; transition: left 0.3s ease-in-out;">
-        <div style="text-align: center; margin-bottom: 20px;">
-            <img src="placeholder-avatar.png" alt="User Avatar" style="width: 80px; height: 80px; border-radius: 50%; margin-bottom:10px;">
-            <h3>Jane Doe</h3>
-            <p>jane.doe@example.com</p>
-        </div>
-        <ul>
-            <li><a href="#dashboard-screen" class="nav-link">Dashboard</a></li>
-            <li><a href="#ai-agents-screen" class="nav-link">AI Agents</a></li>
-            <li><a href="#website-analytics-screen" class="nav-link">Website Analytics</a></li>
-            <li><a href="#client-workspace-screen" class="nav-link">Client Workspace (Agency only)</a></li>
-            <li><a href="#settings-screen" class="nav-link">Settings</a></li>
-            <li><a href="#help-support-screen" class="nav-link">Help/Support</a></li>
-            <li><a href="#case-studies-screen" class="nav-link">Case Studies</a></li>
-            <li><a href="#logout-modal-trigger" id="logout-modal-trigger-sidebar" class="nav-link">Logout</a></li>
-        </ul>
-    </nav>
-
-    <!-- Main Content Wrapper -->
-    <div id="main-content" style="margin-left: 0px; padding-bottom: 60px; transition: margin-left 0.3s ease-in-out;">
-        <main>
-            <!-- SECTION: Splash Screen -->
-            <section id="splash-screen" style="text-align: center; display: block;">
-                <img src="placeholder-logo.png" alt="DigiMarkAI Logo" width="100">
+        <!-- SECTION: Login / Sign Up -->
+        <section id="auth-screen">
+            <div class="auth-header">
+                <img src="placeholder-logo.png" alt="DigiMarkAI Logo"> <!-- Replace with actual logo -->
                 <h2>DigiMarkAI</h2>
-                <p>Your AI Marketing Assistant</p>
-                <p>...</p>
-            </section>
+            </div>
+            <div class="tabs">
+                <button class="active" data-tab="login">Login</button>
+                <button data-tab="signup">Sign Up</button>
+            </div>
 
-            <!-- SECTION: Onboarding Carousel -->
-            <section id="onboarding-carousel">
-                <h2>Welcome to DigiMarkAI!</h2>
-                <div>
-                    <img src="placeholder-onboarding1.png" alt="Automate Your Marketing" style="max-width: 200px;">
-                    <h3>Automate Your Marketing</h3>
-                    <p>Streamline your campaigns and save time with automated workflows.</p>
+            <!-- Login Form -->
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-email">Email/Phone</label>
+                    <input type="text" id="login-email" placeholder="user@example.com">
                 </div>
-                <button class="button onboarding-get-started">Get Started</button>
-            </section>
-
-            <!-- SECTION: Login / Sign Up -->
-            <section id="auth-screen">
-                <div style="text-align: center; margin-bottom: 20px;">
-                    <img src="placeholder-logo.png" alt="DigiMarkAI Logo" width="80">
-                    <h2>DigiMarkAI</h2>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" placeholder="••••••••">
                 </div>
-                <div class="tabs">
-                    <button class="active">Login</button>
-                    <button>Sign Up</button>
+                <a href="#reset-password-screen" class="nav-link forgot-password-link">Forgot Password?</a>
+                <button type="submit" class="button">Login</button>
+
+                <p class="separator">Or continue with</p>
+                <div class="social-login-buttons">
+                    <button type="button" class="button button-secondary">G</button> <!-- Google -->
+                    <button type="button" class="button button-secondary">f</button> <!-- Facebook -->
                 </div>
-                <form id="login-form">
-                    <div class="form-group">
-                        <label for="login-email">Email/Phone</label>
-                        <input type="text" id="login-email" placeholder="user@example.com">
-                    </div>
-                    <div class="form-group">
-                        <label for="login-password">Password</label>
-                        <input type="password" id="login-password" placeholder="••••••••">
-                    </div>
-                    <a href="#reset-password-screen" class="nav-link" style="display: block; text-align: right; margin-bottom: 10px;">Forgot Password?</a>
-                    <button type="submit" class="button" style="width: 100%;">Login</button>
-                    <p style="text-align: center; margin: 15px 0;">Or continue with</p>
-                    <div style="text-align: center; margin-bottom: 15px;">
-                        <button type="button" class="button-secondary">G</button>
-                        <button type="button" class="button-secondary">f</button>
-                    </div>
-                    <p style="text-align: center;">Don't have an account? <a href="#auth-screen" class="auth-tab-link">Sign Up</a></p>
-                </form>
-                <form id="signup-form" style="display: none;">
-                    <div class="form-group">
-                        <label for="signup-name">Name</label>
-                        <input type="text" id="signup-name">
-                    </div>
-                    <div class="form-group">
-                        <label for="signup-email">Email/Phone</label>
-                        <input type="text" id="signup-email">
-                    </div>
-                    <div class="form-group">
-                        <label for="signup-password">Password</label>
-                        <input type="password" id="signup-password">
-                    </div>
-                    <div class="form-group">
-                        <label for="signup-confirm-password">Confirm Password</label>
-                        <input type="password" id="signup-confirm-password">
-                    </div>
-                    <div class="form-group">
-                        <input type="checkbox" id="agree-terms">
-                        <label for="agree-terms" style="display:inline;">I agree to Terms & Conditions and Privacy Policy</label>
-                    </div>
-                    <button type="submit" class="button" style="width: 100%;">Sign Up</button>
-                    <p style="text-align: center;">Already have an account? <a href="#auth-screen" class="auth-tab-link">Login</a></p>
-                </form>
-            </section>
+                <p class="auth-footer-link">Don't have an account? <a href="#auth-screen" class="auth-tab-link">Sign Up</a></p>
+            </form>
 
-            <!-- SECTION: Reset Password -->
-            <section id="reset-password-screen">
-                <div class="app-header">
-                    <a href="#auth-screen" class="back-button nav-link">←</a>
-                    <span class="title">Reset Password</span>
-                    <span></span>
+            <!-- Sign Up Form (conceptually hidden/shown by JS) -->
+            <form id="signup-form" style="display: none;">
+                <div class="form-group">
+                    <label for="signup-name">Name</label>
+                    <input type="text" id="signup-name">
                 </div>
-                <div style="text-align: center; margin-bottom: 20px;">
-                    <img src="placeholder-logo.png" alt="DigiMarkAI Logo" width="80">
+                <div class="form-group">
+                    <label for="signup-email">Email/Phone</label>
+                    <input type="text" id="signup-email">
                 </div>
-                <p>Enter your registered email below</p>
-                <form id="reset-password-form">
-                    <div class="form-group">
-                        <label for="reset-email">Email</label>
-                        <input type="email" id="reset-email" required>
-                    </div>
-                    <button type="submit" class="button" style="width: 100%;">Send Reset Link</button>
-                    <p style="text-align: center; margin-top: 20px;">Already have an account? <a href="#auth-screen" class="nav-link">Login</a></p>
-                </form>
-            </section>
-
-            <!-- SECTION: Onboarding Setup Steps -->
-            <section id="onboarding-step-1-screen">
-                <div class="app-header"><span></span><span class="title">Business Profile (1/4)</span><span></span></div>
-                <input type="text" placeholder="Business Name"><button class="button onboarding-next">Next</button>
-            </section>
-            <section id="onboarding-step-2-screen">
-                <div class="app-header"><a href="#onboarding-step-1-screen" class="back-button nav-link">←</a><span class="title">Link Accounts (2/4)</span><span></span></div>
-                <p>Social Links Here</p><button class="button onboarding-next">Next</button>
-            </section>
-            <section id="onboarding-step-3-screen">
-                <div class="app-header"><a href="#onboarding-step-2-screen" class="back-button nav-link">←</a><span class="title">Target Audience (3/4)</span><span></span></div>
-                <input type="text" placeholder="Target Audience"><button class="button onboarding-next">Next</button>
-            </section>
-            <section id="onboarding-step-4-screen">
-                 <div class="app-header"><a href="#onboarding-step-3-screen" class="back-button nav-link">←</a><span class="title">Setup Complete! (4/4)</span><span></span></div>
-                <img src="placeholder-checkmark.png" alt="Success" width="100"><p>You're all set!</p><button class="button onboarding-finish">Finish Setup</button>
-            </section>
-
-            <!-- SECTION: Dashboard -->
-            <section id="dashboard-screen">
-                <div class="app-header">
-                    <button id="toggle-sidebar">☰</button>
-                    <span class="title">Dashboard</span>
-                    <img src="placeholder-avatar.png" alt="User" style="width:30px; height:30px; border-radius:50%;">
+                <div class="form-group">
+                    <label for="signup-password">Password</label>
+                    <input type="password" id="signup-password">
                 </div>
-                <h2>Good Morning, Alex!</h2>
-                 <div style="display: flex; justify-content: space-around; margin-bottom: 20px;">
-                    <div><strong>Quick Stats</strong><br>1,2K <span>+5%</span></div>
-                    <div><strong>Engagement</strong><br>8% <span>✔</span></div>
-                    <div><strong>Leads</strong><br>3</div>
-                    <div><strong>Credits</strong><br>1085</div>
+                <div class="form-group">
+                    <label for="signup-confirm-password">Confirm Password</label>
+                    <input type="password" id="signup-confirm-password">
                 </div>
-                <h3>Quick Actions</h3>
-                <div style="display: flex; justify-content: space-around; margin-bottom: 20px;">
-                    <button type="button" class="button-secondary">Create Post</button>
-                    <button type="button" class="button-secondary">Check SEO Rank</button>
-                    <button type="button" class="button-secondary">Run Ad Campaign</button>
+                <div class="form-group" style="display: flex; align-items: center;">
+                    <input type="checkbox" id="agree-terms" style="width: auto; margin-right: 8px;">
+                    <label for="agree-terms" style="display:inline; margin-bottom: 0; font-weight: normal;">I agree to Terms & Conditions and Privacy Policy</label>
                 </div>
-                <h3>Upcoming Posts</h3>
-                <ul class="list-item">
-                    <li>Monthly Performance Review - Apr 25</li>
-                    <li>New Product Announcement - Apr 27</li>
-                </ul>
-                <h3>Performance Snapshot</h3>
-                <p>Graph/Chart Placeholder</p>
-            </section>
+                <button type="submit" class="button" style="width: 100%;">Sign Up</button>
+                <p class="auth-footer-link">Already have an account? <a href="#auth-screen" class="auth-tab-link">Login</a></p>
+            </form>
+        </section>
 
-            <!-- SECTION: Leads List -->
-            <section id="leads-screen">
-                <div class="app-header"><a href="#dashboard-screen" class="back-button nav-link">←</a><span class="title">Leads</span><div class="actions"><button>🔍</button></div></div>
-                <div class="tabs">
-                    <button class="button-secondary">Filter</button>
-                    <button class="button-secondary">Sort</button>
-                </div>
-                <div id="leads-empty-state" style="text-align: center; padding: 20px; display:none;">
-                    <img src="placeholder-magnifying-glass.png" alt="No Leads" width="100">
-                    <h3>No leads yet</h3>
-                    <p>Leads from your campaigns and AI agents will appear here.</p>
-                </div>
-                <div id="leads-list">
-                    <div class="list-item">
-                        <strong>Sarah Anderson</strong> <span style="background-color: lightblue; padding: 2px 5px; border-radius: 3px; font-size: 0.8em;">New</span><br>
-                        <small>sarah@example.com | (123) 456-7890</small><br>
-                        <small>April 23, 2024</small>
-                    </div>
-                    <div class="list-item">
-                        <strong>Michael Chen</strong> <span style="background-color: lightgreen; padding: 2px 5px; border-radius: 3px; font-size: 0.8em;">Contacted</span><br>
-                        <small>(505) 122-4587</small><br>
-                        <small>April 23, 2024</small>
-                    </div>
-                </div>
-                 <button class="button" style="position: fixed; bottom: 70px; right: 20px; border-radius: 50%; width: 50px; height: 50px; font-size: 2em;">+</button>
-            </section>
+        <!-- Other sections would go here, eventually styled similarly -->
+        <!-- e.g., <section id="dashboard-screen">...</section> -->
 
-            <!-- Other SECTIONS from your previous HTML, unchanged unless they contained "Bristletech" -->
-            <section id="add-new-lead-screen">
-                <div class="app-header"><a href="#leads-screen" class="back-button nav-link">←</a><span class="title">Add New Lead</span><span></span></div>
-                <form>
-                    <div class="form-group"><label for="lead-name">Name</label><input type="text" id="lead-name" value="Sarah"></div>
-                    <div class="form-group"><label for="lead-email">Email</label><input type="email" id="lead-email" value="sarah@example.com"></div>
-                    <div class="form-group"><label for="lead-phone">Phone</label><input type="tel" id="lead-phone" value="(123) 456-7890"></div>
-                    <div class="form-group"><label for="lead-company">Company</label><select id="lead-company"><option>Select</option></select></div>
-                    <div class="form-group"><label for="lead-status">Status</label><select id="lead-status"><option>New</option></select></div>
-                    <div class="form-group"><label for="lead-source">Source</label><select id="lead-source"><option>Website Form</option></select></div>
-                    <div class="form-group"><label for="lead-notes">Interaction history / notes</label><textarea id="lead-notes"></textarea></div>
-                    <button type="submit" class="button" style="width: 100%;">Save Lead</button>
-                </form>
-            </section>
-            <section id="lead-detail-screen">
-                <div class="app-header"><a href="#leads-screen" class="back-button nav-link">←</a><span class="title">Sarah Anderson</span><span></span></div>
-                <p><strong>Email:</strong> sarah@example.com</p><p><strong>Phone:</strong> (123) 456-7890</p>
-                <p><strong>Source:</strong> Website Form</p><p><strong>Status:</strong> New</p>
-                <p><strong>Notes:</strong> Initial contact made. Follow up scheduled.</p>
-                <div style="margin-top: 20px;"><button class="button">Call</button><button class="button">Email</button><button class="button button-secondary" style="display:block; width: calc(100% - 30px); margin-top:10px;">Mark as Qualified</button><button class="button button-danger" style="display:block; width: calc(100% - 30px); margin-top:10px;">Delete</button></div>
-            </section>
-            <section id="campaigns-screen">
-                <div class="app-header"><a href="#dashboard-screen" class="back-button nav-link">←</a><span class="title">Campaigns</span><span></span></div>
-                <div class="tabs"><button>Social</button><button class="active">SEO</button><button>GBP</button></div>
-                <div id="seo-campaign-content"><h3>Website Authority Score</h3><div style="text-align: center; font-size: 2em; padding: 20px; border: 1px solid; border-radius: 50%; width:100px; height:100px; line-height:100px; margin:auto;">21</div><h4>SEO Keyword Research</h4><form><div class="form-group"><label>Country</label><select><option>India</option></select></div><div class="form-group"><label>What's the post about?</label><input type="text"></div><div class="form-group"><label>Target Audience?</label><input type="text"></div><div class="form-group"><label>Tone of Voice</label><select><option>Select</option></select></div><button type="button" class="button">Generate Keywords</button></form><h4>Top Keyword Research</h4><p>No changes to display</p><h4>SEO Suggestions</h4><ul><li>Optimize your page titles and meta descriptions</li><li>Improve your site's loading speed</li></ul><button class="button">Add Keywords - 1 Credit</button><button class="button button-secondary">Add Keywords To Track</button></div>
-            </section>
-            <section id="create-content-menu-screen">
-                <div class="app-header"><a href="#dashboard-screen" class="back-button nav-link">←</a><span class="title">Create Content</span><span></span></div>
-                <div class="list-item"><a href="#create-social-post-screen" class="nav-link">AI Social Post - Generate special smart emotions</a></div>
-                <div class="list-item"><a href="#generate-ai-image-screen" class="nav-link">AI Image - Smart contents</a></div>
-                <div class="list-item">AI Video - Deliver toast On brand</div>
-                <div class="list-item">AI Email Draft - Ideas engage Tasket</div>
-            </section>
-            <section id="create-social-post-screen">
-                <div class="app-header"><a href="#create-content-menu-screen" class="back-button nav-link">←</a><span class="title">Create Social Post</span><span></span></div>
-                <form><div class="form-group"><label>What is this post about?</label><input type="text" placeholder="Generated"></div><div class="form-group"><label>Goal of the post?</label><select><option>Target Audience</option></select></div><div class="form-group"><label>Tone of Voice</label><select><option>Select</option></select></div><div class="form-group"><label>Keywords to include</label><input type="text" placeholder="Add tags, commas..."></div><button type="button" class="button">GENERATE CONTENT - 2 C</button></form>
-            </section>
-            <section id="review-refine-post-screen">
-                 <div class="app-header"><a href="#create-social-post-screen" class="back-button nav-link">←</a><span class="title">Review & Refine Post</span><span></span></div>
-                <textarea style="width: calc(100% - 22px); height: 150px; padding:10px; border-radius:4px; border:1px solid #ccc;">Craying a cozy spot to relax with your favorite brew? Visit Braws & Bites for a delightful coffee experience - the perfect place to unwind and recharge! #coffeeshop #relaxation</textarea><div style="margin-top:10px;"><button class="button-secondary">Rewrite/Paraphrase</button><button class="button-secondary">Copy</button><button class="button-secondary">Cut</button></div><hr><p>SEO Writing Assistant: 8.1A</p><p>Word count: 32 | Reading Time: 01 min | Readability: 82</p><button class="button-secondary">CHECK PLAGIARISM</button><button class="button">+ ADD AI IMAGE</button>
-            </section>
-            <section id="generate-ai-image-screen">
-                <div class="app-header"><a href="#create-content-menu-screen" class="back-button nav-link">←</a><span class="title">Generate AI Image</span><span></span></div>
-                <form><div class="form-group"><label>Describe the image you want</label><textarea></textarea></div><div class="form-group"><label>Style</label><div><button class="button-secondary">Photo</button><button class="button-secondary">Illustration</button><button class="button-secondary">3D Render</button></div></div><div class="form-group"><label>Styba</label><input type="text" placeholder="Sharp mh post?"><div><button class="button-secondary">Photo</button><button class="button-secondary">Casual</button><button class="button-secondary">Anime</button></div></div><button type="button" class="button">Generate Image - 5 Credits</button><a href="#" style="display:block; text-align:center; margin-top:10px;">Upload & Enhance</a></form>
-            </section>
-            <section id="select-image-screen">
-                <div class="app-header"><a href="#generate-ai-image-screen" class="back-button nav-link">←</a><span class="title">Select Image</span><span></span></div>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;"><img src="placeholder-face1.jpg" alt="Generated Image 1" style="width:100%; border-radius:4px;"><img src="placeholder-face2.jpg" alt="Generated Image 2" style="width:100%; border-radius:4px;"><img src="placeholder-face3.jpg" alt="Generated Image 3" style="width:100%; border-radius:4px;"><img src="placeholder-face4.jpg" alt="Generated Image 4" style="width:100%; border-radius:4px;"></div><div class="form-group" style="margin-top:15px;"><label>Select Image</label><div><button class="button-secondary">Formal</button><button class="button-secondary">Friendly</button></div></div><button class="button" style="width:100%;">Use Selected Image</button><button class="button button-secondary" style="width:100%; margin-top:10px;">Generate More</button>
-            </section>
-            <section id="publish-post-screen">
-                <div class="app-header"><a href="#review-refine-post-screen" class="back-button nav-link">←</a><span class="title">Publish Post</span><span></span></div>
-                <div style="display:flex; align-items: flex-start;"><textarea style="flex-grow:1; height:100px; margin-right:10px;">Treat yourself to a moment of pure bliss! ...</textarea><img src="placeholder-coffee-girl.jpg" alt="Post image" style="width:80px; height:80px; border-radius:4px;"></div><h4>Choose Social Platforms</h4><div class="form-group toggle-switch"><label for="platform-facebook">Facebook (Connected)</label><input type="checkbox" id="platform-facebook" checked></div><div class="form-group toggle-switch"><label for="platform-instagram">Instagram (Connected)</label><input type="checkbox" id="platform-instagram" checked></div><div class="form-group toggle-switch"><label for="change-tone">Change Tone</label><input type="checkbox" id="change-tone"></div><div class="form-group toggle-switch"><label for="simplify">Simplify</label><input type="checkbox" id="simplify"></div><div style="display:flex; justify-content: space-between; margin-top:20px;"><button class="button button-secondary" style="flex-basis:48%;">Post Now</button><button class="button" style="flex-basis:48%;">Schedule</button></div>
-            </section>
-            <section id="schedule-post-datetime-screen">
-                <div class="app-header"><a href="#publish-post-screen" class="back-button nav-link">←</a><span class="title">Select date and time</span><span></span></div>
-                <p style="text-align:center;">[Calendar Grid Placeholder for April 2024]</p><p style="text-align:center;">[Analog Clock Placeholder showing 10:30 AM]</p><div style="display:flex; justify-content: space-between; margin-top:20px;"><button class="button button-secondary" style="flex-basis:48%;">Cancel</button><button class="button" style="flex-basis:48%;">Confirm schedule</button></div>
-            </section>
-            <section id="marketplace-screen">
-                <div class="app-header"><a href="#dashboard-screen" class="back-button nav-link">←</a><span class="title">Marketplace</span><span></span></div>
-                <div class="tabs"><button class="active">Find Vendors</button><button>My Projects</button></div><div><div class="form-group" style="display:flex;"><input type="search" placeholder="Search vendors..." style="flex-grow:1; margin-right:10px;"><button class="button-secondary">Filter</button></div><div class="list-item"><img src="placeholder-promo-logo.png" alt="PromoVision Logo" style="width:40px; vertical-align:middle; margin-right:10px;"><strong>PromoVision</strong> <span>4.5 ★★★★★</span><br><small>Advertising, Marketing</small></div><button class="button" style="width:100%; margin-top:20px;">Post a Project Need</button></div>
-            </section>
-            <section id="post-project-screen">
-                 <div class="app-header"><a href="#marketplace-screen" class="back-button nav-link">←</a><span class="title">Post a Project</span><span></span></div>
-                <form><div class="form-group"><label for="project-title">Project Title</label><input type="text" id="project-title"></div><div class="form-group"><label for="project-details">Describe your need (details)</label><textarea id="project-details" rows="4"></textarea></div><div class="form-group"><label for="service-category">Service Category</label><select id="service-category"><option>Select</option></select></div><div class="form-group"><label for="budget-range">Budget Range (e.g. ₹5000 - ₹10000)</label><input type="text" id="budget-range"></div><div class="form-group"><label for="desired-deadline">Desired Deadline</label><input type="date" id="desired-deadline"></div><button type="submit" class="button" style="width:100%;">Submit Project</button></form>
-            </section>
-            <section id="settings-screen">
-                <div class="app-header"><a href="#dashboard-screen" class="back-button nav-link">←</a><span class="title">Settings</span><span></span></div>
-                <h3>ACCOUNT</h3><div class="list-item"><a href="#" class="nav-link">Profile</a></div><div class="list-item"><a href="#" class="nav-link">Change Password</a></div><div class="list-item"><a href="#" class="nav-link">Linked Social Accounts</a></div><h3>BILLING</h3><div class="list-item"><a href="#" class="nav-link">Current Credit Balance</a></div><div class="list-item"><a href="#buy-credits-screen" class="nav-link">Buy Credits</a></div><div class="list-item"><a href="#" class="nav-link">Transaction History</a></div><h3>NOTIFICATIONS</h3><div class="list-item"><a href="#notification-settings-screen" class="nav-link">Notification Settings</a></div><button class="button" style="width:100%; margin-top:20px;">Submit Project</button> <!-- This button seems out of place in general settings, but present in mockup -->
-                <div class="list-item"><a href="#logout-modal-trigger" id="logout-modal-trigger-settings" class="nav-link">Logout</a></div>
-            </section>
-            <section id="notification-settings-screen">
-                <div class="app-header"><a href="#settings-screen" class="back-button nav-link">←</a><span class="title">Notifications</span><span></span></div>
-                <div class="form-group toggle-switch"><label for="notif-new-leads">New Leads</label><input type="checkbox" id="notif-new-leads" checked></div><div class="form-group toggle-switch"><label for="notif-post-successful">Post Successful</label><input type="checkbox" id="notif-post-successful" checked></div><div class="form-group toggle-switch"><label for="notif-campaign-updates">Campaign Updates</label><input type="checkbox" id="notif-campaign-updates" checked></div><div class="form-group toggle-switch"><label for="notif-marketplace-messages">Marketplace Messages</label><input type="checkbox" id="notif-marketplace-messages"></div><div class="form-group toggle-switch"><label for="notif-offers-updates">Offers & Updates</label><input type="checkbox" id="notif-offers-updates"></div><h3>LEGAL</h3><div class="list-item">Language Preference <span style="float:right;">></span></div><div class="list-item">Appearance <span style="float:right;">Light ></span></div><div class="list-item">Clear Cache <span style="float:right;">></span></div><h3>LEGAL</h3><div class="list-item">Privacy Policy <span style="float:right;">></span></div>
-            </section>
-            <section id="buy-credits-screen">
-                 <div class="app-header"><a href="#settings-screen" class="back-button nav-link">←</a><span class="title">Buy Credits</span><span style="font-weight:bold;">1085 Credits</span></div>
-                <div class="list-item" style="display:flex; justify-content:space-between; align-items:center;"><div><strong>500 Credits</strong><br>₹ 500</div><button class="button">BUY NOW</button></div><div class="list-item" style="display:flex; justify-content:space-between; align-items:center;"><div><strong>1100 (Bonus)</strong><br>₹ 1000 (Bonus!)</div><button class="button">BUY NOW</button></div><div class="list-item" style="display:flex; justify-content:space-between; align-items:center;"><div><strong>2500 Credits</strong><br>₹ 2000</div><button class="button">BUY NOW</button></div><div style="text-align:center; margin:20px 0;"><span>UPI</span> <span>VISA</span> <span>Mastercard</span><p><a href="#">What can I do with credits?</a></p></div><button class="button" style="width:100%;">Buy Now</button>
-            </section>
+    </div> <!-- End app-container -->
 
-            <!-- Placeholder sections for sidebar links that don't have full mockups -->
-            <section id="ai-agents-screen"><div class="app-header"><a href="#dashboard-screen" class="back-button nav-link">←</a><span class="title">AI Agents</span><span></span></div><p>AI Agents Content Here</p></section>
-            <section id="website-analytics-screen"><div class="app-header"><a href="#dashboard-screen" class="back-button nav-link">←</a><span class="title">Website Analytics</span><span></span></div><p>Website Analytics Content Here</p></section>
-            <section id="client-workspace-screen"><div class="app-header"><a href="#dashboard-screen" class="back-button nav-link">←</a><span class="title">Client Workspace</span><span></span></div><p>Client Workspace Content Here</p></section>
-            <section id="help-support-screen"><div class="app-header"><a href="#dashboard-screen" class="back-button nav-link">←</a><span class="title">Help/Support</span><span></span></div><p>Help/Support Content Here</p></section>
-            <section id="case-studies-screen"><div class="app-header"><a href="#dashboard-screen" class="back-button nav-link">←</a><span class="title">Case Studies</span><span></span></div><p>Case Studies Content Here</p></section>
+    <script>
+        // Your existing script.js content or refined version
+        // Make sure your script.js correctly handles showing/hiding sections
+        // and tab switching based on the new data-tab attributes on tab buttons.
+        document.addEventListener('DOMContentLoaded', () => {
+            const authTabs = document.querySelectorAll('#auth-screen .tabs button');
+            const loginForm = document.getElementById('login-form');
+            const signupForm = document.getElementById('signup-form');
+            const authTabLinks = document.querySelectorAll('.auth-tab-link');
 
-        </main>
-    </div> <!-- End Main Content -->
+            function showAuthForm(formToShow) {
+                if (formToShow === 'login' && loginForm && signupForm) {
+                    loginForm.style.display = 'block';
+                    signupForm.style.display = 'none';
+                    authTabs.forEach(t => t.classList.toggle('active', t.dataset.tab === 'login'));
+                } else if (formToShow === 'signup' && loginForm && signupForm) {
+                    loginForm.style.display = 'none';
+                    signupForm.style.display = 'block';
+                    authTabs.forEach(t => t.classList.toggle('active', t.dataset.tab === 'signup'));
+                }
+            }
 
-    <!-- MODAL: Logout Confirmation -->
-    <div id="logout-modal" class="modal-overlay">
-        <div class="modal-content">
-            <button class="close-modal-btn">×</button>
-            <img src="placeholder-logout-avatar.png" alt="Logout Avatar" width="80" style="margin-bottom:15px;">
-            <h2>Logout</h2>
-            <p>Are you sure you want to logout?</p>
-            <button class="button cancel-modal-btn" style="width:calc(100% - 30px); margin-bottom:10px;">Cancel</button>
-            <button class="button-danger" id="confirm-logout-btn" style="background:none; color:red; border:none;">Logout</button>
-        </div>
-    </div>
+            authTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    showAuthForm(tab.dataset.tab);
+                });
+            });
+            authTabLinks.forEach(link => {
+                link.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    const targetText = link.textContent.toLowerCase();
+                    if (targetText.includes('sign up')) {
+                        showAuthForm('signup');
+                    } else {
+                        showAuthForm('login');
+                    }
+                });
+            });
 
-    <!-- Conceptual Bottom Navigation for Mobile -->
-    <footer id="bottom-nav" style="position: fixed; bottom: 0; width: 100%; background: white; border-top: 1px solid #ccc; display: flex; justify-content: space-around; padding: 10px 0; z-index: 800;">
-        <a href="#dashboard-screen" class="nav-link active">🏠<br><small>Dashboard</small></a>
-        <a href="#leads-screen" class="nav-link">👥<br><small>Leads</small></a>
-        <a href="#create-content-menu-screen" class="nav-link">➕<br><small>Create</small></a>
-        <a href="#campaigns-screen" class="nav-link">📊<br><small>Campaigns</small></a>
-        <a href="#settings-screen" class="nav-link">⚙️<br><small>More</small></a>
-    </footer>
+            // Initialize with login form visible
+            showAuthForm('login');
 
-    <script src="script.js"></script>
+            // Add other event listeners from your main script.js here or ensure they are loaded.
+            // For this focused example, I'm only including the auth tab logic.
+        });
+    </script>
 </body>
 </html>
