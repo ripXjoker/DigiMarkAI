@@ -1,37 +1,161 @@
-// script.js
-
 document.addEventListener('DOMContentLoaded', () => {
-    // --- DOM Element Selections ---
+    // --- Card Animation and Effects ---
+    const cards = document.querySelectorAll(".card");
+    const isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+
+    cards.forEach((card) => {
+        const content = card.querySelector(".card-content");
+        const rotationFactor = parseFloat(card.getAttribute("data-rotation-factor")) || 2;
+
+        if (!isTouchDevice) {
+            card.addEventListener("mousemove", (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateY = (rotationFactor * (x - centerX)) / centerX;
+                const rotateX = (-rotationFactor * (y - centerY)) / centerY;
+
+                content.style.transform = `
+                    rotateX(${rotateX}deg) 
+                    rotateY(${rotateY}deg)
+                `;
+
+                card.style.setProperty("--x", `${(x / rect.width) * 100}%`);
+                card.style.setProperty("--y", `${(y / rect.height) * 100}%`);
+            });
+
+            card.addEventListener("mouseleave", () => {
+                content.style.transform = "rotateX(0) rotateY(0)";
+                content.style.transition = "transform 0.5s ease";
+                setTimeout(() => {
+                    content.style.transition = "";
+                }, 500);
+            });
+        }
+
+        const randomDelay = Math.random() * 2;
+        card.style.animation = `cardFloat 4s infinite alternate ease-in-out ${randomDelay}s`;
+    });
+
+    // Add card floating animation styles
+    const style = document.createElement("style");
+    style.textContent = `
+        @keyframes cardFloat {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(-5px);
+            }
+        }
+        
+        @media (min-width: 768px) {
+            @keyframes cardFloat {
+                0% {
+                    transform: translateY(0);
+                }
+                100% {
+                    transform: translateY(-8px);
+                }
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            @keyframes cardFloat {
+                0% {
+                    transform: translateY(0);
+                }
+                100% {
+                    transform: translateY(-10px);
+                }
+            }
+        }
+    `;
+    document.head.appendChild(style);
+
+    // Button ripple effects
+    const buttons = document.querySelectorAll(".card-button");
+    buttons.forEach((button) => {
+        button.addEventListener("click", (e) => {
+            e.stopPropagation();
+
+            const ripple = document.createElement("span");
+            ripple.classList.add("ripple");
+            button.appendChild(ripple);
+
+            const rect = button.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height) * 2;
+
+            ripple.style.width = ripple.style.height = `${size}px`;
+            ripple.style.left = `${e.clientX - rect.left - size / 2}px`;
+            ripple.style.top = `${e.clientY - rect.top - size / 2}px`;
+
+            ripple.classList.add("active");
+
+            setTimeout(() => {
+                ripple.remove();
+            }, 500);
+        });
+    });
+
+    // Add ripple effect styles
+    const rippleStyle = document.createElement("style");
+    rippleStyle.textContent = `
+        .card-button {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ripple {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: scale(0);
+            animation: ripple 0.5s linear;
+            pointer-events: none;
+        }
+        
+        @keyframes ripple {
+            to {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+    `;
+    document.head.appendChild(rippleStyle);
+
+    // --- Main Application Logic ---
     const sections = document.querySelectorAll('main > section');
     const splashScreen = document.getElementById('splash-screen');
     const authScreen = document.getElementById('auth-screen');
     const dashboardScreen = document.getElementById('dashboard-screen');
-    const onboardingCarousel = document.getElementById('onboarding-carousel'); // Added
+    const onboardingCarousel = document.getElementById('onboarding-carousel');
 
     // Navigation Links
-    const navLinks = document.querySelectorAll('.nav-link'); // Using common class
+    const navLinks = document.querySelectorAll('.nav-link');
     const sidebarNavLinks = document.querySelectorAll('#main-sidebar a');
     const bottomNavLinks = document.querySelectorAll('#bottom-nav a');
-
 
     // Auth Forms
     const loginForm = document.getElementById('login-form');
     const signupForm = document.getElementById('signup-form');
     const authTabs = document.querySelectorAll('#auth-screen .tabs button');
-    const authTabLinks = document.querySelectorAll('.auth-tab-link'); // Links to switch auth tabs
+    const authTabLinks = document.querySelectorAll('.auth-tab-link');
 
     // Onboarding
     const onboardingGetStartedBtn = document.querySelector('.onboarding-get-started');
     const onboardingNextBtns = document.querySelectorAll('.onboarding-next');
     const onboardingFinishBtn = document.querySelector('.onboarding-finish');
-    const onboardingSteps = [ // IDs of onboarding step sections
+    const onboardingSteps = [
         'onboarding-step-1-screen',
         'onboarding-step-2-screen',
         'onboarding-step-3-screen',
         'onboarding-step-4-screen'
     ];
     let currentOnboardingStep = 0;
-
 
     // Sidebar
     const sidebar = document.getElementById('main-sidebar');
@@ -40,12 +164,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Modals
     const logoutModal = document.getElementById('logout-modal');
-    const logoutModalTriggers = document.querySelectorAll('[href="#logout-modal-trigger"]'); // Select all logout triggers
+    const logoutModalTriggers = document.querySelectorAll('[href="#logout-modal-trigger"]');
     const closeModalButtons = document.querySelectorAll('.close-modal-btn, .cancel-modal-btn');
     const confirmLogoutBtn = document.getElementById('confirm-logout-btn');
 
-
-    // --- Initial State & Setup ---
+    // --- Functions ---
     function hideAllSections() {
         sections.forEach(section => section.style.display = 'none');
     }
@@ -59,65 +182,59 @@ document.addEventListener('DOMContentLoaded', () => {
             updateActiveNavLink(sectionId);
         } else {
             console.warn(`Section with ID "${sectionId}" not found.`);
-            if (dashboardScreen) dashboardScreen.style.display = 'block'; // Fallback
+            if (dashboardScreen) dashboardScreen.style.display = 'block';
         }
     }
 
     function updateActiveNavLink(activeSectionId) {
         sidebarNavLinks.forEach(link => {
             if (link.getAttribute('href') === `#${activeSectionId}`) {
-                link.classList.add('active'); // You'll need CSS for .active
+                link.classList.add('active');
             } else {
                 link.classList.remove('active');
             }
         });
         bottomNavLinks.forEach(link => {
             if (link.getAttribute('href') === `#${activeSectionId}`) {
-                link.classList.add('active'); // You'll need CSS for .active
-                 link.style.color = '#3498db'; // Example active style
-                 link.style.fontWeight = 'bold';
+                link.classList.add('active');
+                link.style.color = '#3498db';
+                link.style.fontWeight = 'bold';
             } else {
                 link.classList.remove('active');
-                link.style.color = '#7f8c8d'; // Example inactive style
+                link.style.color = '#7f8c8d';
                 link.style.fontWeight = 'normal';
             }
         });
     }
 
-
     function initializeApp() {
-        if (splashScreen) { // Start with splash screen
+        if (splashScreen) {
             splashScreen.style.display = 'block';
             setTimeout(() => {
-                // Check if user has completed onboarding (e.g., using localStorage)
                 const onboardingComplete = localStorage.getItem('onboardingComplete');
                 if (!onboardingComplete && onboardingCarousel) {
                     showSection('onboarding-carousel');
-                } else if (authScreen) { // Default to auth if no splash or onboarding needed
+                } else if (authScreen) {
                     showSection('auth-screen');
                 } else if (dashboardScreen) {
                     showSection('dashboard-screen');
                 }
             }, 1500);
         } else {
-            // Fallback if no splash screen
-             const onboardingComplete = localStorage.getItem('onboardingComplete');
+            const onboardingComplete = localStorage.getItem('onboardingComplete');
             if (!onboardingComplete && onboardingCarousel) {
                 showSection('onboarding-carousel');
             } else if (authScreen) {
                 showSection('auth-screen');
             } else if (dashboardScreen) {
                 showSection('dashboard-screen');
-            } else {
-                // If nothing else, try to show the first section found
-                if(sections.length > 0) sections[0].style.display = 'block';
+            } else if (sections.length > 0) {
+                sections[0].style.display = 'block';
             }
         }
     }
 
     // --- Event Listeners ---
-
-    // Generic Navigation Handling
     navLinks.forEach(link => {
         link.addEventListener('click', (event) => {
             const targetId = link.getAttribute('href');
@@ -126,7 +243,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const sectionId = targetId.substring(1);
 
                 if (sectionId === 'logout-modal-trigger') {
-                    if(logoutModal) logoutModal.style.display = 'flex';
+                    if (logoutModal) logoutModal.style.display = 'flex';
                 } else {
                     showSection(sectionId);
                 }
@@ -134,7 +251,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Auth Tab Switching (Buttons)
     authTabs.forEach(tab => {
         tab.addEventListener('click', () => {
             authTabs.forEach(t => t.classList.remove('active'));
@@ -150,80 +266,73 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
-    // Auth Tab Switching (Links like "Sign Up" / "Login" text links)
+
     authTabLinks.forEach(link => {
         link.addEventListener('click', (event) => {
             event.preventDefault();
             const targetText = link.textContent.toLowerCase();
             authTabs.forEach(tabButton => {
                 if (tabButton.textContent.toLowerCase().includes(targetText)) {
-                    tabButton.click(); // Simulate click on the corresponding tab button
+                    tabButton.click();
                 }
             });
         });
     });
 
-
-    // Login Form Submission (Placeholder)
     if (loginForm) {
         loginForm.addEventListener('submit', (event) => {
             event.preventDefault();
             console.log('Login attempt:', { email: loginForm.querySelector('#login-email').value });
             alert('Login successful (placeholder)! Navigating to dashboard.');
-            // Simulate successful login
-            localStorage.setItem('userLoggedIn', 'true'); // Example flag
+            localStorage.setItem('userLoggedIn', 'true');
             showSection('dashboard-screen');
         });
     }
-    // Signup Form Submission (Placeholder)
+
     if (signupForm) {
         signupForm.addEventListener('submit', (event) => {
             event.preventDefault();
             console.log('Signup attempt:', { name: signupForm.querySelector('#signup-name').value, email: signupForm.querySelector('#signup-email').value });
             alert('Signup successful (placeholder)! Please login.');
-            // Optionally switch to login tab
             authTabs.forEach(tab => { if (tab.textContent.toLowerCase().includes('login')) tab.click(); });
         });
     }
-    // Reset Password Form
+
     const resetPasswordForm = document.getElementById('reset-password-form');
     if (resetPasswordForm) {
         resetPasswordForm.addEventListener('submit', (e) => {
             e.preventDefault();
             alert('Password reset link sent (placeholder)!');
-            showSection('auth-screen'); // Go back to login
+            showSection('auth-screen');
         });
     }
 
-
-    // Onboarding Logic
     if (onboardingGetStartedBtn) {
         onboardingGetStartedBtn.addEventListener('click', () => {
             currentOnboardingStep = 0;
             showSection(onboardingSteps[currentOnboardingStep]);
         });
     }
+
     onboardingNextBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             currentOnboardingStep++;
             if (currentOnboardingStep < onboardingSteps.length) {
                 showSection(onboardingSteps[currentOnboardingStep]);
             } else {
-                // Should not happen if finish button is separate
                 localStorage.setItem('onboardingComplete', 'true');
-                showSection('auth-screen'); // Or dashboard if auto-login after onboarding
+                showSection('auth-screen');
             }
         });
     });
+
     if (onboardingFinishBtn) {
         onboardingFinishBtn.addEventListener('click', () => {
             localStorage.setItem('onboardingComplete', 'true');
-            showSection('auth-screen'); // Or dashboard
+            showSection('auth-screen');
         });
     }
 
-
-    // Sidebar Toggle
     if (toggleSidebarButton && sidebar && mainContent) {
         toggleSidebarButton.addEventListener('click', () => {
             const isSidebarOpen = sidebar.style.left === '0px';
@@ -232,7 +341,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Modal Handling
     logoutModalTriggers.forEach(trigger => {
         trigger.addEventListener('click', (e) => {
             e.preventDefault();
@@ -256,13 +364,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (confirmLogoutBtn) {
         confirmLogoutBtn.addEventListener('click', () => {
             alert('Logged out (placeholder)!');
-            localStorage.removeItem('userLoggedIn'); // Clear login flag
-            localStorage.removeItem('onboardingComplete'); // Optionally reset onboarding for testing
-            if(logoutModal) logoutModal.style.display = 'none';
+            localStorage.removeItem('userLoggedIn');
+            localStorage.removeItem('onboardingComplete');
+            if (logoutModal) logoutModal.style.display = 'none';
             showSection('auth-screen');
         });
     }
-
 
     // --- Initialize App ---
     if (sections.length > 0) {
