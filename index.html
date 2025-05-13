@@ -15,143 +15,151 @@
         <div class="gradient-blob"></div>
     </div>
 
-    <!--
-        The original ".app-container" might not be needed with this new full-page CSS.
-        The <main> tag will be the primary content wrapper.
-        I'm commenting out the .app-container for now. If you find you need it for
-        some specific centering or max-width control not handled by the new CSS,
-        you can uncomment it and adjust the CSS accordingly.
-    -->
-    <!-- <div class="app-container"> -->
-
-        <!-- SECTION: Login / Sign Up -->
-        <!-- This section will inherit global styles from style.css (dark bg, white text) -->
-        <!-- Specific styling for auth elements might be needed in style.css if you want a more refined look -->
-        <section id="auth-screen">
-            <!-- You might want a container here if you don't use .app-container for centering -->
-            <div style="max-width: 420px; margin: 30px auto; padding: 20px; background: rgba(0,0,0,0.2); border-radius: 12px; backdrop-filter: blur(5px);">
-                <div class="auth-header" style="text-align: center; margin-bottom: 20px;">
-                    <!-- Make sure placeholder-logo.png exists in the same folder as index.html -->
-                    <img src="placeholder-logo.png" alt="DigiMarkAI Logo" style="width: 60px; margin-bottom: 10px; border-radius: 50%; background: #fff;">
-                    <h2 style="font-size: 24px; color: var(--color-text); font-weight: 600;">DigiMarkAI</h2>
-                </div>
-                <div class="tabs" style="display: flex; margin-bottom: 20px; border-bottom: 1px solid var(--card-border);">
-                    <button class="active" data-tab="login" style="flex-grow: 1; padding: 12px; border: none; background: none; cursor: pointer; font-size: 16px; color: var(--color-text); opacity: 0.7;">Login</button>
-                    <button data-tab="signup" style="flex-grow: 1; padding: 12px; border: none; background: none; cursor: pointer; font-size: 16px; color: var(--color-text); opacity: 0.7;">Sign Up</button>
-                </div>
-                <!-- Basic form styling for visibility, enhance in style.css as needed -->
-                <style>
-                    #auth-screen .form-group label { display: block; margin-bottom: 5px; font-size: 0.9em; opacity: 0.8;}
-                    #auth-screen .form-group input[type="text"],
-                    #auth-screen .form-group input[type="password"] {
-                        width: 100%; padding: 10px; margin-bottom: 15px;
-                        border-radius: 8px; border: 1px solid var(--card-border);
-                        background: rgba(255,255,255,0.05); color: var(--color-text); font-size: 1em;
-                    }
-                    #auth-screen .button {
-                        display: block; width: 100%; padding: 12px; border: none; border-radius: 8px;
-                        background: var(--color-primary); color: var(--color-text); font-size: 1em;
-                        cursor: pointer; margin-bottom: 15px; text-align: center;
-                    }
-                    #auth-screen .button-secondary { background: rgba(255,255,255,0.1); color: var(--color-text); border: 1px solid var(--card-border); margin: 0 5px; width: auto; display: inline-block; padding: 10px 15px; }
-                    #auth-screen .forgot-password-link { display: block; text-align: right; font-size: 0.9em; margin-bottom: 15px; color: var(--color-accent); text-decoration: none;}
-                    #auth-screen .separator { text-align: center; margin: 15px 0; opacity: 0.7; font-size: 0.9em;}
-                    #auth-screen .social-login-buttons { text-align: center; margin-bottom: 15px;}
-                    #auth-screen .auth-footer-link { text-align: center; margin-top: 15px; font-size: 0.9em; opacity: 0.8;}
-                    #auth-screen .auth-footer-link a { color: var(--color-accent); text-decoration: none; font-weight: bold;}
-                    #auth-screen .tabs button.active { opacity: 1; border-bottom: 2px solid var(--color-primary); }
-                </style>
-                <form id="login-form">
-                    <div class="form-group">
-                        <label for="login-email">Email or Phone</label>
-                        <input type="text" id="login-email" placeholder="you@example.com">
-                    </div>
-                    <div class="form-group">
-                        <label for="login-password">Password</label>
-                        <input type="password" id="login-password" placeholder="••••••••">
-                    </div>
-                    <a href="#" class="forgot-password-link">Forgot Password?</a>
-                    <button type="submit" class="button">Login</button>
-                    <p class="separator">Or continue with</p>
-                    <div class="social-login-buttons">
-                        <button type="button" class="button button-secondary">G</button>
-                        <button type="button" class="button button-secondary">f</button>
-                    </div>
-                    <p class="auth-footer-link">Don't have an account? <a href="#" class="auth-tab-link">Sign Up</a></p>
-                </form>
-                <form id="signup-form" style="display: none;">
-                     <div class="form-group">
-                        <label for="signup-name">Full Name</label>
-                        <input type="text" id="signup-name" placeholder="Your Name">
-                    </div>
-                    <div class="form-group">
-                        <label for="signup-email">Email or Phone</label>
-                        <input type="text" id="signup-email" placeholder="you@example.com">
-                    </div>
-                    <div class="form-group">
-                        <label for="signup-password">Create Password</label>
-                        <input type="password" id="signup-password" placeholder="Minimum 8 characters">
-                    </div>
-                    <button type="submit" class="button">Create Account</button>
-                    <p class="auth-footer-link">Already have an account? <a href="#" class="auth-tab-link">Login</a></p>
-                </form>
+    <section id="auth-screen">
+        <div style="max-width: 420px; margin: 5vh auto; padding: 30px 25px; background: rgba(10, 10, 20, 0.3); border-radius: 16px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1);">
+            <div class="auth-header" style="text-align: center; margin-bottom: 25px;">
+                <!-- USE THE NEW LOGO HERE -->
+                <img src="logo.png" alt="DigiMarkAI Logo" style="width: 120px; /* Adjust width as needed */ margin-bottom: 10px;">
+                <!-- The h2 might be redundant if your logo image already contains the text "DigiMarkAI" -->
+                <!-- If your logo image is just "DM", keep the h2. If it includes "DIGIMARKAI", you can remove the h2 or style it differently -->
+                <!-- <h2 style="font-size: 24px; color: var(--color-text); font-weight: 600;">DigiMarkAI</h2> -->
             </div>
-        </section>
+            <div class="tabs" style="display: flex; margin-bottom: 25px; border-bottom: 1px solid var(--card-border);">
+                <button class="active" data-tab="login" style="flex-grow: 1; padding: 12px 15px; border: none; background: none; cursor: pointer; font-size: 16px; color: var(--color-text); opacity: 0.7; font-weight: 500; transition: opacity 0.3s, border-bottom 0.3s;">Login</button>
+                <button data-tab="signup" style="flex-grow: 1; padding: 12px 15px; border: none; background: none; cursor: pointer; font-size: 16px; color: var(--color-text); opacity: 0.7; font-weight: 500; transition: opacity 0.3s, border-bottom 0.3s;">Sign Up</button>
+            </div>
+            <!-- Basic form styling for visibility, enhance in style.css as needed -->
+            <style>
+                #auth-screen .form-group label { display: block; margin-bottom: 8px; font-size: 0.9em; opacity: 0.8; font-weight: 500;}
+                #auth-screen .form-group input[type="text"],
+                #auth-screen .form-group input[type="email"], /* Added for consistency */
+                #auth-screen .form-group input[type="password"] {
+                    width: 100%; padding: 12px; margin-bottom: 18px;
+                    border-radius: 8px; border: 1px solid var(--card-border);
+                    background: rgba(255,255,255,0.07); color: var(--color-text); font-size: 1em;
+                    box-sizing: border-box;
+                }
+                #auth-screen .form-group input[type="text"]:focus,
+                #auth-screen .form-group input[type="email"]:focus,
+                #auth-screen .form-group input[type="password"]:focus {
+                    outline: none; border-color: var(--color-primary);
+                    background: rgba(255,255,255,0.1);
+                    box-shadow: 0 0 0 2px rgba(var(--color-primary), 0.3); /* Assuming --color-primary is RGB, needs adjustment if not */
+                }
+                #auth-screen .button {
+                    display: block; width: 100%; padding: 12px; border: none; border-radius: 8px;
+                    background: var(--color-primary); color: var(--color-text); font-size: 1em; font-weight: 600;
+                    cursor: pointer; margin-bottom: 20px; text-align: center; transition: background-color 0.3s;
+                }
+                #auth-screen .button:hover { background: #ff1f5c; /* Darker shade of primary */ }
+                #auth-screen .button-secondary {
+                    background: rgba(255,255,255,0.1); color: var(--color-text);
+                    border: 1px solid var(--card-border); margin: 0 8px; width: auto;
+                    display: inline-block; padding: 10px 20px; font-weight: 500;
+                    border-radius: 8px; transition: background-color 0.3s;
+                }
+                #auth-screen .button-secondary:hover { background: rgba(255,255,255,0.15); }
+                #auth-screen .forgot-password-link { display: block; text-align: right; font-size: 0.9em; margin-bottom: 20px; color: var(--color-accent); text-decoration: none;}
+                #auth-screen .forgot-password-link:hover { text-decoration: underline; }
+                #auth-screen .separator { text-align: center; margin: 20px 0; opacity: 0.7; font-size: 0.9em;}
+                #auth-screen .social-login-buttons { text-align: center; margin-bottom: 20px;}
+                #auth-screen .auth-footer-link { text-align: center; margin-top: 20px; font-size: 0.9em; opacity: 0.8;}
+                #auth-screen .auth-footer-link a { color: var(--color-accent); text-decoration: none; font-weight: bold;}
+                #auth-screen .auth-footer-link a:hover { text-decoration: underline; }
+                #auth-screen .tabs button.active { opacity: 1; font-weight: 600; border-bottom: 2px solid var(--color-primary); }
+            </style>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-email">Email or Phone</label>
+                    <input type="text" id="login-email" placeholder="you@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" placeholder="••••••••">
+                </div>
+                <a href="#" class="forgot-password-link">Forgot Password?</a>
+                <button type="submit" class="button">Login</button>
+                <p class="separator">Or continue with</p>
+                <div class="social-login-buttons">
+                    <button type="button" class="button button-secondary">G</button>
+                    <button type="button" class="button button-secondary">f</button>
+                </div>
+                <p class="auth-footer-link">Don't have an account? <a href="#" class="auth-tab-link">Sign Up</a></p>
+            </form>
+            <form id="signup-form" style="display: none;">
+                 <div class="form-group">
+                    <label for="signup-name">Full Name</label>
+                    <input type="text" id="signup-name" placeholder="Your Name">
+                </div>
+                <div class="form-group">
+                    <label for="signup-email">Email or Phone</label>
+                    <input type="email" id="signup-email" placeholder="you@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="signup-password">Create Password</label>
+                    <input type="password" id="signup-password" placeholder="Minimum 8 characters">
+                </div>
+                <div class="form-group">
+                    <label for="signup-confirm-password">Confirm Password</label> <!-- Added for signup -->
+                    <input type="password" id="signup-confirm-password" placeholder="Re-enter password">
+                </div>
+                <button type="submit" class="button">Create Account</button>
+                <p class="auth-footer-link">Already have an account? <a href="#" class="auth-tab-link">Login</a></p>
+            </form>
+        </div>
+    </section>
 
-        <!-- SECTION: Dashboard/Main Content -->
-        <section id="dashboard-screen" style="display: none;"> <!-- Hidden by default, shown by JS -->
-            <main>
-                <h1>Welcome Back!</h1>
-                <p class="subtitle">Explore your marketing insights and tools.</p>
+    <!-- SECTION: Dashboard/Main Content -->
+    <section id="dashboard-screen" style="display: none;"> <!-- Hidden by default, shown by JS -->
+        <main>
+            <!-- You could also add the logo to the dashboard header if desired -->
+            <!-- <img src="logo.png" alt="DigiMarkAI Logo" style="display:block; margin: 0 auto 20px; width: 100px;"> -->
+            <h1>Welcome Back!</h1>
+            <p class="subtitle">Explore your marketing insights and tools.</p>
 
-                <div class="cards-container">
-                    <div class="card" onmousemove="this.style.setProperty('--x', (event.offsetX / this.offsetWidth * 100) + '%'); this.style.setProperty('--y', (event.offsetY / this.offsetHeight * 100) + '%');">
-                        <div class="card-content">
-                            <h2>Campaign Performance</h2>
-                            <p>Review key metrics for your active campaigns and optimize for better results.</p>
-                            <div class="card-footer">
-                                <button class="card-button">View Details</button>
-                                <div class="card-icon">→</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card" onmousemove="this.style.setProperty('--x', (event.offsetX / this.offsetWidth * 100) + '%'); this.style.setProperty('--y', (event.offsetY / this.offsetHeight * 100) + '%');">
-                        <div class="card-content">
-                            <h2>Audience Insights</h2>
-                            <p>Understand your target audience demographics, interests, and behavior patterns.</p>
-                            <div class="card-footer">
-                                <button class="card-button">Explore Data</button>
-                                <div class="card-icon">→</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card" onmousemove="this.style.setProperty('--x', (event.offsetX / this.offsetWidth * 100) + '%'); this.style.setProperty('--y', (event.offsetY / this.offsetHeight * 100) + '%');">
-                        <div class="card-content">
-                            <h2>Content Planner</h2>
-                            <p>Schedule and manage your social media posts and marketing content efficiently.</p>
-                            <div class="card-footer">
-                                <button class="card-button">Open Planner</button>
-                                <div class="card-icon">→</div>
-                            </div>
+            <div class="cards-container">
+                <div class="card" onmousemove="this.style.setProperty('--x', (event.offsetX / this.offsetWidth * 100) + '%'); this.style.setProperty('--y', (event.offsetY / this.offsetHeight * 100) + '%');">
+                    <div class="card-content">
+                        <h2>Campaign Performance</h2>
+                        <p>Review key metrics for your active campaigns and optimize for better results.</p>
+                        <div class="card-footer">
+                            <button class="card-button">View Details</button>
+                            <div class="card-icon">→</div>
                         </div>
                     </div>
                 </div>
-            </main>
-        </section>
-    <!-- </div> --> <!-- End .app-container (if you were using it) -->
+
+                <div class="card" onmousemove="this.style.setProperty('--x', (event.offsetX / this.offsetWidth * 100) + '%'); this.style.setProperty('--y', (event.offsetY / this.offsetHeight * 100) + '%');">
+                    <div class="card-content">
+                        <h2>Audience Insights</h2>
+                        <p>Understand your target audience demographics, interests, and behavior patterns.</p>
+                        <div class="card-footer">
+                            <button class="card-button">Explore Data</button>
+                            <div class="card-icon">→</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" onmousemove="this.style.setProperty('--x', (event.offsetX / this.offsetWidth * 100) + '%'); this.style.setProperty('--y', (event.offsetY / this.offsetHeight * 100) + '%');">
+                    <div class="card-content">
+                        <h2>Content Planner</h2>
+                        <p>Schedule and manage your social media posts and marketing content efficiently.</p>
+                        <div class="card-footer">
+                            <button class="card-button">Open Planner</button>
+                            <div class="card-icon">→</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </section>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Card hover effect for mouse position
-            // This was likely handled by a JS library in the original dark theme demo if it had 3D tilt.
-            // For the ::before radial gradient, the onmousemove is added directly to the card HTML.
-
             const authTabs = document.querySelectorAll('#auth-screen .tabs button');
             const loginForm = document.getElementById('login-form');
             const signupForm = document.getElementById('signup-form');
-            const authTabLinks = document.querySelectorAll('#auth-screen .auth-tab-link'); // Scoped to auth-screen
+            const authTabLinks = document.querySelectorAll('#auth-screen .auth-tab-link');
 
             function showAuthForm(formToShow) {
                 if (formToShow === 'login' && loginForm && signupForm) {
@@ -184,7 +192,6 @@
             });
 
             function showScreen(screenId) {
-                // Adjust selector if .app-container is removed
                 const sections = document.querySelectorAll('body > section');
                 sections.forEach(section => {
                     section.style.display = 'none';
@@ -195,13 +202,9 @@
                 }
             }
             
-            showAuthForm('login'); // Show login screen by default
-            // To test dashboard directly (make sure #dashboard-screen display is not 'none' initially in HTML for this test):
+            showAuthForm('login');
+            // To test dashboard directly:
             // showScreen('dashboard-screen');
-            // loginForm.style.display = 'none'; // hide login form if showing dashboard directly
-            // document.getElementById('auth-screen').style.display = 'none';
-            // document.getElementById('dashboard-screen').style.display = 'block';
-
 
             if (loginForm) {
                 loginForm.addEventListener('submit', (e) => {
