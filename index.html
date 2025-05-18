@@ -3,222 +3,460 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DigiMarkAI - Dark Theme</title>
+    <title>MARK1AI</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="https://i.postimg.cc/L8yLYN6n/favicon-2.png" type="image/x-icon">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+
+
 </head>
 <body>
+    <header data-header>
+        <div class="overlay " data-overlay></div>
 
-    <!-- Full page background with gradient blobs -->
-    <div class="background">
-        <div class="gradient-blob"></div>
-        <div class="gradient-blob"></div>
-        <div class="gradient-blob"></div>
-    </div>
+        <div class="container">
+            <a href="#" class="logo"><img src="https://i.postimg.cc/0NsjNS7b/logo.png" alt="SCEO Logo"></a>
 
-    <section id="auth-screen">
-        <div style="max-width: 420px; margin: 5vh auto; padding: 30px 25px; background: rgba(10, 10, 20, 0.3); border-radius: 16px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1);">
-            <div class="auth-header" style="text-align: center; margin-bottom: 25px;">
-                <!-- USE THE NEW LOGO HERE -->
-                <img src="logo.png" alt="DigiMarkAI Logo" style="width: 120px; /* Adjust width as needed */ margin-bottom: 10px;">
-                <!-- The h2 might be redundant if your logo image already contains the text "DigiMarkAI" -->
-                <!-- If your logo image is just "DM", keep the h2. If it includes "DIGIMARKAI", you can remove the h2 or style it differently -->
-                <!-- <h2 style="font-size: 24px; color: var(--color-text); font-weight: 600;">DigiMarkAI</h2> -->
-            </div>
-            <div class="tabs" style="display: flex; margin-bottom: 25px; border-bottom: 1px solid var(--card-border);">
-                <button class="active" data-tab="login" style="flex-grow: 1; padding: 12px 15px; border: none; background: none; cursor: pointer; font-size: 16px; color: var(--color-text); opacity: 0.7; font-weight: 500; transition: opacity 0.3s, border-bottom 0.3s;">Login</button>
-                <button data-tab="signup" style="flex-grow: 1; padding: 12px 15px; border: none; background: none; cursor: pointer; font-size: 16px; color: var(--color-text); opacity: 0.7; font-weight: 500; transition: opacity 0.3s, border-bottom 0.3s;">Sign Up</button>
-            </div>
-            <!-- Basic form styling for visibility, enhance in style.css as needed -->
-            <style>
-                #auth-screen .form-group label { display: block; margin-bottom: 8px; font-size: 0.9em; opacity: 0.8; font-weight: 500;}
-                #auth-screen .form-group input[type="text"],
-                #auth-screen .form-group input[type="email"], /* Added for consistency */
-                #auth-screen .form-group input[type="password"] {
-                    width: 100%; padding: 12px; margin-bottom: 18px;
-                    border-radius: 8px; border: 1px solid var(--card-border);
-                    background: rgba(255,255,255,0.07); color: var(--color-text); font-size: 1em;
-                    box-sizing: border-box;
-                }
-                #auth-screen .form-group input[type="text"]:focus,
-                #auth-screen .form-group input[type="email"]:focus,
-                #auth-screen .form-group input[type="password"]:focus {
-                    outline: none; border-color: var(--color-primary);
-                    background: rgba(255,255,255,0.1);
-                    box-shadow: 0 0 0 2px rgba(var(--color-primary), 0.3); /* Assuming --color-primary is RGB, needs adjustment if not */
-                }
-                #auth-screen .button {
-                    display: block; width: 100%; padding: 12px; border: none; border-radius: 8px;
-                    background: var(--color-primary); color: var(--color-text); font-size: 1em; font-weight: 600;
-                    cursor: pointer; margin-bottom: 20px; text-align: center; transition: background-color 0.3s;
-                }
-                #auth-screen .button:hover { background: #ff1f5c; /* Darker shade of primary */ }
-                #auth-screen .button-secondary {
-                    background: rgba(255,255,255,0.1); color: var(--color-text);
-                    border: 1px solid var(--card-border); margin: 0 8px; width: auto;
-                    display: inline-block; padding: 10px 20px; font-weight: 500;
-                    border-radius: 8px; transition: background-color 0.3s;
-                }
-                #auth-screen .button-secondary:hover { background: rgba(255,255,255,0.15); }
-                #auth-screen .forgot-password-link { display: block; text-align: right; font-size: 0.9em; margin-bottom: 20px; color: var(--color-accent); text-decoration: none;}
-                #auth-screen .forgot-password-link:hover { text-decoration: underline; }
-                #auth-screen .separator { text-align: center; margin: 20px 0; opacity: 0.7; font-size: 0.9em;}
-                #auth-screen .social-login-buttons { text-align: center; margin-bottom: 20px;}
-                #auth-screen .auth-footer-link { text-align: center; margin-top: 20px; font-size: 0.9em; opacity: 0.8;}
-                #auth-screen .auth-footer-link a { color: var(--color-accent); text-decoration: none; font-weight: bold;}
-                #auth-screen .auth-footer-link a:hover { text-decoration: underline; }
-                #auth-screen .tabs button.active { opacity: 1; font-weight: 600; border-bottom: 2px solid var(--color-primary); }
-            </style>
-            <form id="login-form">
-                <div class="form-group">
-                    <label for="login-email">Email or Phone</label>
-                    <input type="text" id="login-email" placeholder="you@example.com">
-                </div>
-                <div class="form-group">
-                    <label for="login-password">Password</label>
-                    <input type="password" id="login-password" placeholder="••••••••">
-                </div>
-                <a href="#" class="forgot-password-link">Forgot Password?</a>
-                <button type="submit" class="button">Login</button>
-                <p class="separator">Or continue with</p>
-                <div class="social-login-buttons">
-                    <button type="button" class="button button-secondary">G</button>
-                    <button type="button" class="button button-secondary">f</button>
-                </div>
-                <p class="auth-footer-link">Don't have an account? <a href="#" class="auth-tab-link">Sign Up</a></p>
-            </form>
-            <form id="signup-form" style="display: none;">
-                 <div class="form-group">
-                    <label for="signup-name">Full Name</label>
-                    <input type="text" id="signup-name" placeholder="Your Name">
-                </div>
-                <div class="form-group">
-                    <label for="signup-email">Email or Phone</label>
-                    <input type="email" id="signup-email" placeholder="you@example.com">
-                </div>
-                <div class="form-group">
-                    <label for="signup-password">Create Password</label>
-                    <input type="password" id="signup-password" placeholder="Minimum 8 characters">
-                </div>
-                <div class="form-group">
-                    <label for="signup-confirm-password">Confirm Password</label> <!-- Added for signup -->
-                    <input type="password" id="signup-confirm-password" placeholder="Re-enter password">
-                </div>
-                <button type="submit" class="button">Create Account</button>
-                <p class="auth-footer-link">Already have an account? <a href="#" class="auth-tab-link">Login</a></p>
-            </form>
+            <button class="nav-open-btn" data-nav-open-btn><ion-icon name="menu-outline"></ion-icon></button>
+
+            <nav class="navbar " data-navbar>
+                <button class="nav-close-btn" data-nav-close-btn><ion-icon name="close-outline"></ion-icon></button>
+
+                <ul class="navbar-list">
+                    <li class="navbar-item"><a href="#home" class="navbar-link">Home</a></li>
+                    <li class="navbar-item"><a href="#service" class="navbar-link">Service</a></li>
+                    <li class="navbar-item"><a href="#about" class="navbar-link">About</a></li>
+                    <li class="navbar-item"><a href="#features" class="navbar-link">Features</a></li>
+                    <li class="navbar-item"><a href="#pricing" class="navbar-link">Pricing</a></li>
+                    <li class="navbar-item"><a href="#faq" class="navbar-link">FAQ's</a></li>
+                </ul>
+
+                <button class="btn btn-primary">Let's Started</button>
+            </nav>
         </div>
-    </section>
+    </header>
 
-    <!-- SECTION: Dashboard/Main Content -->
-    <section id="dashboard-screen" style="display: none;"> <!-- Hidden by default, shown by JS -->
-        <main>
-            <!-- You could also add the logo to the dashboard header if desired -->
-            <!-- <img src="logo.png" alt="DigiMarkAI Logo" style="display:block; margin: 0 auto 20px; width: 100px;"> -->
-            <h1>Welcome Back!</h1>
-            <p class="subtitle">Explore your marketing insights and tools.</p>
+    <main>
+        <article>
+            <section class="hero" id="hero">
+                <div class="container">
+                    <div class="hero-content">
+                        <h1 class="h1 hero-title">Get more sales with <abbr title="Search Engine Optimization">SEO</abbr>, <abbr title="Pay per click">PPC</abbr>, and email marketing</h1>
 
-            <div class="cards-container">
-                <div class="card" onmousemove="this.style.setProperty('--x', (event.offsetX / this.offsetWidth * 100) + '%'); this.style.setProperty('--y', (event.offsetY / this.offsetHeight * 100) + '%');">
-                    <div class="card-content">
-                        <h2>Campaign Performance</h2>
-                        <p>Review key metrics for your active campaigns and optimize for better results.</p>
-                        <div class="card-footer">
-                            <button class="card-button">View Details</button>
-                            <div class="card-icon">→</div>
+                        <form action="" class="hero-form">
+                            <input type="text" name="name" placeholder="Enter your name" required class="input-field">
+                            <input type="email" name="email" placeholder="Enter your email" required class="input-field">
+
+                            <button type="submit" class="btn btn-primary">Get Started Now</button>
+                        </form>
+
+                        <p class="hero-text">
+                            <span>Free 30 days trial</span>
+                            <span>Exclusive Support</span>
+                            <span>No Fees</span>
+                        </p>
+                    </div>
+
+                    <figure class="hero-banner">
+                        <img src="https://i.postimg.cc/dtvLvpcG/hero-banner.png" alt="SEO Illustration">
+                    </figure>
+                </div>
+            </section>
+
+
+            <section class="service" id="service">
+                <div class="container">
+                    <h2 class="h2 section-title">Get More Customers Online</h2>
+
+                    <p class="section-text">Get more customers by mastering the digital landscape. Optimize your website, leverage social media, and harness the power of search engines</p>
+
+                    <ul class="service-list">
+                        <li>
+                            <div class="service-card">
+                                <div class="card-icon"><ion-icon name="location-outline"></ion-icon></div>
+
+                                <h3 class="h4 card-title">Local <abbr title="Search Engine Optimization">SEO</abbr></h3>
+
+                                <p class="card-text">Effectively reach customers in your area and grow your business</p>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="service-card">
+                                <div class="card-icon"><ion-icon name="bar-chart-outline"></ion-icon></div>
+
+                                <h3 class="h4 card-title">E-Commerce <abbr title="Search Engine Optimization">SEO</abbr></h3>
+
+                                <p class="card-text">Significantly improve your online presence and drive more sales</p>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="service-card">
+                                <div class="card-icon"><ion-icon name="pie-chart-outline"></ion-icon></div>
+
+                                <h3 class="h4 card-title">Advanced Analytics</abbr></h3>
+
+                                <p class="card-text">Transform your data into actionable insights, driving growth and innovation</p>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="service-card">
+                                <div class="card-icon"><ion-icon name="magnet-outline"></ion-icon></div>
+
+                                <h3 class="h4 card-title"><abbr title="Pay per click">PPC</abbr> Management</abbr></h3>
+
+                                <p class="card-text">Use dynamic and strategic approach to digital advertising to achieve the best results</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="about" id="about">
+                <div class="container">
+                    <div class="about-top">
+                        <figure class="about-banner">
+                            <img src="https://i.postimg.cc/c4zqpfcq/about-banner-1.png" alt="SEO Illustration">
+                        </figure>
+
+                        <div class="about-content">
+                            <p class="section-subtitle">Quick and Secure</p>
+
+                            <h2 class="h3 section-title">First page rankings. First name basis</h2>
+
+                            <p class="section-text">Optimize your website to rank higher in organic (non-paid) search results on search engines like Google. Also improve the quality and relevance of your website's content, structure, and user experience by using keyword research, on-page optimization, off-page optimization and free traffic goals</p>
+
+                            <p class="section-text">With a strategic approach, you can reach new audiences, build brand loyalty, and watch your customer base grow. Ready to take your business to the next level?</p>
+                        </div>
+                    </div>
+
+                    <div class="about-bottom">
+                        <figure class="about-banner">
+                            <img src="https://i.postimg.cc/BvcVnF2n/about-banner-2.png" alt="SEO Illustration">
+                        </figure>
+
+                        <div class="about-content">
+                            <h3 class="h4 about-bottom-title">Advanced Analytics Review</h3>
+
+                            <p class="section-text">Use a set of sophisticated techniques and tools used to analyze complex data sets and extract valuable insights that go beyond traditional business intelligence methods. Here we can include machine learning, and data mining techniques to uncover patterns, predict future trends, and support decision-making processes</p>
+
+                            <h3 class="h4 about-bottom-title">Improve your website ranking fast</h3>
+
+                            <ul class="about-bottom-list">
+                                <li class="about-bottom-item">
+                                    <p class="section-text">Start by developing a solid <abbr title="Search Engine Optimization">SEO</abbr> optimization strategy that includes keyword research to identify terms your audience is searching for</p>
+                                </li>
+
+                                <li class="about-bottom-item">
+                                    <p class="section-text">Next, create and publish relevant, authoritative content that addresses these keywords, ensuring it's engaging and valuable to your visitors</p>
+                                </li>
+
+                                <li class="about-bottom-item">
+                                    <p class="section-text">Also, regularly update your existing content to keep it fresh and relevant</p>
+                                </li>
+
+                                <li class="about-bottom-item">
+                                    <p class="section-text">Usually optimize your website's on-page <abbr title="Search Engine Optimization">SEO</abbr> elements, such as title tags and meta descriptions</p>
+                                </li>
+
+                                <li class="about-bottom-item">
+                                    <p class="section-text"> Additionally, aim to build a link-worthy site by promoting your content through social media and outreach, encouraging other sites to link back to you</p>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
+            </section>
 
-                <div class="card" onmousemove="this.style.setProperty('--x', (event.offsetX / this.offsetWidth * 100) + '%'); this.style.setProperty('--y', (event.offsetY / this.offsetHeight * 100) + '%');">
-                    <div class="card-content">
-                        <h2>Audience Insights</h2>
-                        <p>Understand your target audience demographics, interests, and behavior patterns.</p>
-                        <div class="card-footer">
-                            <button class="card-button">Explore Data</button>
-                            <div class="card-icon">→</div>
+            <section class="features" id="features">
+                <div class="container">
+                    <p class="section-subtitle">Market Research</p>
+
+                    <h2 class="h3 section-title">Integrated marketing solutions that fuel business growth</h2>
+
+                    <ul class="features-list">
+                        <li>
+                            <div class="features-card">
+                                <div class="card-icon">
+                                    <ion-icon name="analytics-outline"></ion-icon>
+
+                                    
+                                </div>
+
+                                <div class="card-content">
+                                    <h3 class="h4 card-title">Advanced Analytics Review</h3>
+
+                                    <p class="section-text">Transform your data into actionable insights, driving growth and innovation</p>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="features-card">
+                                <div class="card-icon">
+                                    <ion-icon name="mail-open-outline"></ion-icon>
+
+                                    
+                                </div>
+
+                                <div class="card-content">
+                                    <h3 class="h4 card-title">Email Marketing Campaigns</h3>
+
+                                    <p class="section-text">Use this powerful tool to connect with your audience, drive sales, and foster loyalty</p>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="features-card">
+                                <div class="card-icon">
+                                    <ion-icon name="film-outline"></ion-icon>
+
+                                    
+                                </div>
+
+                                <div class="card-content">
+                                    <h3 class="h4 card-title">Video Marketing</h3>
+
+                                    <p class="section-text">Where attention spans are short, video marketing shines as a way to communicate messages quickly and memorably</p>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="features-card">
+                                <div class="card-icon">
+                                    <ion-icon name="globe-outline"></ion-icon>
+
+                                    
+                                </div>
+
+                                <div class="card-content">
+                                    <h3 class="h4 card-title">Search Engine Optimization (SEO)</h3>
+
+                                    <p class="section-text">Make your website become more discoverable and relevant to users searching for specific information</p>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="features-card">
+                                <div class="card-icon">
+                                    <ion-icon name="magnet-outline"></ion-icon>
+
+                                    
+                                </div>
+
+                                <div class="card-content">
+                                    <h3 class="h4 card-title">Pay Per Click (PPC)</h3>
+
+                                    <p class="section-text">Use dynamic and strategic approach in digital advertising to achieve the best results</p>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="features-card">
+                                <div class="card-icon">
+                                    <ion-icon name="layers-outline"></ion-icon>
+
+                                    
+                                </div>
+
+                                <div class="card-content">
+                                    <h3 class="h4 card-title">Content Marketing</h3>
+
+                                    <p class="section-text">Deliver the right content to the right audience at the right time</p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="pricing" id="pricing">
+                <div class="container">
+                    <div class="pricing-content">
+                        <p class="section-subtitle">Easiest to use</p>
+
+                        <h2 class="h3 section-title">One brilliant idea for every client</h2>
+
+                        <p class="section-text">We understand each client's unique needs, challenges, and aspirations by crafting a strategy that sparks innovation and delivers exceptional results</p>
+
+                        <button class="btn btn-primary">Pricing & Packages</button>
+                    </div>
+
+                    <figure class="pricing-banner">
+                        <img src="https://i.postimg.cc/FKNQpNZ1/pricing-banner.png" alt="Pricing Illustration">
+                    </figure>
+                </div>
+            </section>
+
+            <section class="faq" id="faq">
+                <div class="container">
+                    <p class="section-subtitle">Frequently Asked Questions</p>
+
+                    <h2 class="h3 section-title">Everything you need to know before getting started</h2>
+
+                    <div class="grid-wrapper">
+                        <ul class="faq-list">
+                            <li>
+                                <h3 class="h4 card-title">Can I see SCEO in action before purchasing?</h3>
+
+                                <p class="section-text">Yes, we provide for you a free trial version, for around 7-15 days, of our functionalities and features firsthand. This will allow you to interact with the inteface and see the first results in real-time</p>
+                            </li>
+
+                            <li>
+                                <h3 class="h4 card-title">What are the requirements for using SCEO?</h3>
+
+                                <p class="section-text">SCEO require few demands to work in your company. This includes a desktop or mobile device linked to a stable internet, a user account to access our features and keep your device updated to ensure security and compatibility with the latest SCEO features</p>
+                            </li>
+
+                            <li>
+                                <h3 class="h4 card-title">Can I use SCEO on different devices?</h3>
+
+                                <ul class="faq-item-list">
+                                    <li>
+                                        <p class="section-text">Yes, SCEO is designed to work seamlessly on both desktop and mobile devices</p>
+                                    </li>
+
+                                    <li>
+                                        <p class="section-text">We just emphasize that the SCEO mobile version has fewer features if compared with desktop version. Also SCEO mobile version focus in practicity, with simpler layouts, but more effective infos displayed. While desktop version is more robust giving depth-info of your website and more features dedicated to analysis and creation sceneries</p>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <ul class="faq-list">
+                            <li>
+                                <h3 class="h4 card-title">Do you have a free trial?</h3>
+
+                                <p class="section-text">Yes, we provide for you a free trial version, for around 7-15 days</p>
+                            </li>
+
+                            <li>
+                                <h3 class="h4 card-title">How does SCEO handle my privacy?</h3>
+
+                                <p class="section-text">SCEO takes your personal information seriously and implements several measures to ensure your data is protected</p>
+
+                                <p class="section-text">This include strict use of third-party serives, user management of data preferences, transparency and regular information about how your data is collected and used and compliance with relevant data protection regulations</p>
+                            </li>
+
+                            <li>
+                                <h3 class="h4 card-title">I have an issue with my account</h3>
+
+                                <ul class="faq-item-list">
+                                    <li>
+                                        <p class="section-text">When experiencing an issue, you can use our SCEO IA help right below your login screen for fast support. Most of problems (like login problems, account verification, billing issues, access issues, technical glitches) are solved using it.</p>
+                                    </li>
+
+                                    <li>
+                                        <p class="section-text">If the above solution don't resolve your issue, our SCEO IA rapidly contacts SCEO's customer support with prepared staff to solve more complex issues. Also you can access our customer support by phone or email</p>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <p class="faq-bottom-link">
+                        Have any more questions?
+                        <a href="#">Ask your question here</a>
+                    </p>
+                </div>
+            </section>
+
+            <section class="cta">
+                <div class="container">
+                    <div class="cta-card">
+                        <h2 class="cta-title">Try SCEO for 14 days. Start your trial now and pick a plan later</h2>
+
+                        <div class="cta-button-wrapper">
+                            <button class="btn btn-primary">Get Started Now</button>
+
+                            <a href="#faq">Read the FAQs</a>
                         </div>
                     </div>
                 </div>
+            </section>
 
-                <div class="card" onmousemove="this.style.setProperty('--x', (event.offsetX / this.offsetWidth * 100) + '%'); this.style.setProperty('--y', (event.offsetY / this.offsetHeight * 100) + '%');">
-                    <div class="card-content">
-                        <h2>Content Planner</h2>
-                        <p>Schedule and manage your social media posts and marketing content efficiently.</p>
-                        <div class="card-footer">
-                            <button class="card-button">Open Planner</button>
-                            <div class="card-icon">→</div>
-                        </div>
-                    </div>
+        </article>
+    </main>
+
+    <footer>
+        <div class="footer-top">
+            <div class="container">
+                <div class="footer-brand">
+                    <a href="#" class="footer-logo"><img src="https://i.postimg.cc/JhsK6h1q/logo.png" alt="SCEO Logo"></a>
+
+                    <p class="section-text">known for providing innovative solutions to enhance online visibility and improve search engine rankings for businesses</p>
+                </div>
+
+                <div class="footer-link-box">
+                    <ul class="footer-list">
+                        <li><p class="h4">Company</p></li>
+
+                        <li><a href="#" class="footer-link">About us</a></li>
+                        <li><a href="#" class="footer-link">Careers</a></li>
+                        <li><a href="#" class="footer-link">Press & Media</a></li>
+                        <li><a href="#" class="footer-link">Contact us</a></li>
+                    </ul>
+
+                    <ul class="footer-list">
+                        <li><p class="h4">Discover</p></li>
+
+                        <li><a href="#" class="footer-link">Our blog</a></li>
+                        <li><a href="#" class="footer-link">Advertising</a></li>
+                        <li><a href="#" class="footer-link">Plans & Pricing</a></li>
+                        <li><a href="#" class="footer-link">Testimonials</a></li>
+                    </ul>
+
+                    <ul class="footer-list">
+                        <li><p class="h4">Legal</p></li>
+
+                        <li><a href="#" class="footer-link">Terms of use</a></li>
+                        <li><a href="#" class="footer-link">Privacy Policy</a></li>
+                        <li><a href="#" class="footer-link">Cookie Policy</a></li>
+                        <li><a href="#" class="footer-link">Site map</a></li>
+                    </ul>
+
+                    <ul class="footer-list">
+                        <li><p class="h4">Support</p></li>
+
+                        <li><a href="#" class="footer-link">FAQs</a></li>
+                        <li><a href="#" class="footer-link">Editor Help</a></li>
+                        <li><a href="#" class="footer-link">Community</a></li>
+                        <li><a href="#" class="footer-link">Live Chatting</a></li>
+                    </ul>
                 </div>
             </div>
-        </main>
-    </section>
+        </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const authTabs = document.querySelectorAll('#auth-screen .tabs button');
-            const loginForm = document.getElementById('login-form');
-            const signupForm = document.getElementById('signup-form');
-            const authTabLinks = document.querySelectorAll('#auth-screen .auth-tab-link');
+        <hr class="divider">
 
-            function showAuthForm(formToShow) {
-                if (formToShow === 'login' && loginForm && signupForm) {
-                    loginForm.style.display = 'block';
-                    signupForm.style.display = 'none';
-                    authTabs.forEach(t => t.classList.toggle('active', t.dataset.tab === 'login'));
-                } else if (formToShow === 'signup' && loginForm && signupForm) {
-                    loginForm.style.display = 'none';
-                    signupForm.style.display = 'block';
-                    authTabs.forEach(t => t.classList.toggle('active', t.dataset.tab === 'signup'));
-                }
-            }
+        <div class="footer-bottom">
+            <div class="container">
+                <p class="copyright">&copy; 2024 <a href="#">ULTRA CODE</a>. All rights reserved</p>
 
-            authTabs.forEach(tab => {
-                tab.addEventListener('click', (e) => {
-                    showAuthForm(e.target.dataset.tab);
-                });
-            });
+                <ul class="social-list">
+                    <li><a href="#" class="social-link">Github</a></li>
+                    <li><a href="#" class="social-link">Twitter</a></li>
+                    <li><a href="#" class="social-link">Instagram</a></li>
+                    <li><a href="#" class="social-link">Youtube</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
 
-            authTabLinks.forEach(link => {
-                link.addEventListener('click', (event) => {
-                    event.preventDefault();
-                    const targetText = link.textContent.toLowerCase();
-                    if (targetText.includes('sign up') || targetText.includes('create account')) {
-                        showAuthForm('signup');
-                    } else {
-                        showAuthForm('login');
-                    }
-                });
-            });
+    <a href="#top" class="go-top-btn active" data-go-top><ion-icon name="arrow-up-outline"></ion-icon></a>
 
-            function showScreen(screenId) {
-                const sections = document.querySelectorAll('body > section');
-                sections.forEach(section => {
-                    section.style.display = 'none';
-                });
-                const activeScreen = document.getElementById(screenId);
-                if (activeScreen) {
-                    activeScreen.style.display = 'block';
-                }
-            }
-            
-            showAuthForm('login');
-            // To test dashboard directly:
-            // showScreen('dashboard-screen');
+    <script src="main.js"></script>
 
-            if (loginForm) {
-                loginForm.addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    showScreen('dashboard-screen');
-                });
-            }
-            if (signupForm) {
-                signupForm.addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    showScreen('dashboard-screen');
-                });
-            }
-        });
-    </script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
 </html>
